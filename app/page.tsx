@@ -1,5 +1,11 @@
+import { ModeToggle } from "@/components/ToggleThemeButton";
 import Image from "next/image";
 
 export default function Home() {
-  return <section>Home</section>;
+  return (
+    <section>
+      Home
+      <ModeToggle />
+    </section>
+  );
 }
