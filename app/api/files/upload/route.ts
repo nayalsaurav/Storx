@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
       return NextResponse.json(
         { error: "Only images and PDF files are supported" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,14 +45,14 @@ export async function POST(request: NextRequest) {
           and(
             eq(files.userId, userId),
             eq(files.id, parentId),
-            eq(files.isFolder, true)
-          )
+            eq(files.isFolder, true),
+          ),
         );
 
       if (!parentFolder) {
         return NextResponse.json(
           { error: "Parent folder not found" },
-          { status: 404 }
+          { status: 404 },
         );
       }
     }
@@ -107,13 +107,13 @@ export async function POST(request: NextRequest) {
     if (error instanceof Error && error.message.includes("ImageKit")) {
       return NextResponse.json(
         { error: "File upload service error" },
-        { status: 503 }
+        { status: 503 },
       );
     }
 
     return NextResponse.json(
       { error: "Failed to upload file" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -16,7 +16,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { error: "failed to generate auth parameters for imagekit" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -10,12 +10,14 @@ export async function GET(request: NextRequest) {
     if (!userId) {
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
     }
+
     const searchParams = request.nextUrl.searchParams;
     const queryUserId = searchParams.get("userId");
     const parentId = searchParams.get("parentId");
-    if (!queryUserId || queryUserId !== userId)
+
+    if (!queryUserId || queryUserId !== userId) {
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    //fetch files from db
+    }
 
     let userFiles = [];
     if (parentId) {
@@ -29,12 +31,13 @@ export async function GET(request: NextRequest) {
         .from(files)
         .where(and(eq(files.userId, userId), isNull(files.parentId)));
     }
+
+    return NextResponse.json({ files: userFiles });
   } catch (error) {
+    console.error("GET /api/files error:", error);
     return NextResponse.json(
-      {
-        error: "error fetching files",
-      },
-      { status: 500 }
+      { error: "error fetching files" },
+      { status: 500 },
     );
   }
 }

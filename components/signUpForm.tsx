@@ -69,7 +69,7 @@ export const SignUpForm = () => {
       console.error("signup error", error);
       toast.error(
         error.errors?.[0]?.message ||
-          "An error occurred during signup. Please try again"
+          "An error occurred during signup. Please try again",
       );
     } finally {
       setIsSubmitting(false);
@@ -93,7 +93,7 @@ export const SignUpForm = () => {
   };
 
   const handleVerificationSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     if (!isLoaded || !signUp) return;
@@ -118,7 +118,7 @@ export const SignUpForm = () => {
       console.error("Verification error:", error);
       toast(
         "Verification Code " + error.errors?.[0]?.message ||
-          "An error occurred during verification. Please try again"
+          "An error occurred during verification. Please try again",
       );
     } finally {
       setIsSubmitting(false);

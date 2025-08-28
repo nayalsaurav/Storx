@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     if (!imagekit || !imagekit.url) {
       return NextResponse.json(
         { error: "invalid file upload data" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "failed to save info data to database" },
-      { status: 403 }
+      { status: 403 },
     );
   }
 }

@@ -15,13 +15,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+    console.log("Body : ", body);
     const { name, userId: bodyUserId, parentId = null } = body;
     if (bodyUserId !== userId)
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });
     if (!name || typeof name !== "string" || name.trim() === "") {
       return NextResponse.json(
         { error: "folder name is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     if (parentId) {
@@ -31,15 +32,15 @@ export async function POST(request: NextRequest) {
         .where(
           and(
             eq(files.id, parentId),
-            eq(files.id, userId),
-            eq(files.isFolder, true)
-          )
+            eq(files.userId, userId),
+            eq(files.isFolder, true),
+          ),
         );
 
       if (!parentData)
         return NextResponse.json(
           { error: "Parent folder not found" },
-          { status: 404 }
+          { status: 404 },
         );
     }
 
@@ -67,7 +68,9 @@ export async function POST(request: NextRequest) {
         message: "folder created successfully",
         folder: newFolder,
       },
-      { status: 400 }
+      { status: 200 },
     );
-  } catch (error) {}
+  } catch (error) {
+    console.log("error occured. ", error);
+  }
 }

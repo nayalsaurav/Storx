@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   request: NextRequest,
-  props: { params: Promise<{ fileId: string }> }
+  props: { params: Promise<{ fileId: string }> },
 ) {
   try {
     // Authenticate user
@@ -21,7 +21,7 @@ export async function DELETE(
     if (!fileId) {
       return NextResponse.json(
         { error: "File ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const body = await request.json();
@@ -41,7 +41,7 @@ export async function DELETE(
         {
           error: "File not found or you don't have permission to delete it",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
     // Delete the file from imagekit
@@ -55,7 +55,7 @@ export async function DELETE(
     if (deletedFiles.length === 0) {
       return NextResponse.json(
         { error: "Failed to delete file" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -64,13 +64,13 @@ export async function DELETE(
         message: "File deleted successfully",
         deletedFile: deletedFiles[0],
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error deleting file:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

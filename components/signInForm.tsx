@@ -59,7 +59,7 @@ export const SignInForm = () => {
     } catch (error: any) {
       console.error("Sign in error:", error);
       toast.error(
-        error.errors?.[0]?.message || "An error occurred during sign in"
+        error.errors?.[0]?.message || "An error occurred during sign in",
       );
     } finally {
       setIsSubmitting(false);
